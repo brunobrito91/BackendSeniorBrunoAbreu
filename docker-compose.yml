@@ -1,0 +1,24 @@
+version: '3.1'
+services:
+  employee-registration-database-service:
+    container_name: employee-registration-database-container
+    image: mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - employee-registration-network
+    volumes:
+      - employee-registration-volume:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: employee-registration-database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      
+networks:
+  employee-registration-network:
+
+volumes:
+  employee-registration-volume:
