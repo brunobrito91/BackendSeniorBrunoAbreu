@@ -1,6 +1,7 @@
 package com.bruno.abreu.employeeregistration.exception.handler;
 
 import com.bruno.abreu.employeeregistration.exception.*;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,5 +62,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("message", "Invalid sector!");
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
+    @ExceptionHandler(value = EmptyResultDataAccessException.class)
+    public ResponseEntity handleEmptyResultDataAccessException() {
+        return ResponseEntity.notFound().build();
     }
 }

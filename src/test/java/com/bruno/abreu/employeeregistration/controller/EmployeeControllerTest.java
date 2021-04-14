@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -22,7 +23,7 @@ import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.Month;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -189,4 +190,30 @@ class EmployeeControllerTest {
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.content().json(responseBody));
     }
+
+    @Test
+    void removeEmployeeByIdShouldReturnStatusOk() throws Exception {
+        String cpf = "12345678900";
+        doNothing().when(employeeService).remove(cpf);
+        mockMvc
+                .perform(MockMvcRequestBuilders
+                        .delete("/employees/{id}", cpf)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void removeEmployeeByIdNotSavedShouldReturnStatusNotFound() throws Exception {
+        String cpf = "12345678900";
+        doThrow(EmptyResultDataAccessException.class).when(employeeService).remove(cpf);
+        mockMvc
+                .perform(MockMvcRequestBuilders
+                        .delete("/employees/{id}", cpf)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+
 }

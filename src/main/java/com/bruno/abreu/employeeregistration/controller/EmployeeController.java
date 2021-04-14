@@ -4,10 +4,7 @@ import com.bruno.abreu.employeeregistration.model.Employee;
 import com.bruno.abreu.employeeregistration.service.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -27,5 +24,13 @@ public class EmployeeController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(newEmployee);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable("id") String cpf) {
+        employeeService.remove(cpf);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .build();
     }
 }

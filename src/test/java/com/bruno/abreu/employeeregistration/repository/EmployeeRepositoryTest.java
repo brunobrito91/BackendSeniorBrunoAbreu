@@ -10,8 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class EmployeeRepositoryTest {
@@ -62,6 +61,15 @@ class EmployeeRepositoryTest {
         Long countSector2 = employeeRepository.countEmployeesBySector(Sector.builder().id(2L).build());
         assertEquals(5, countSector1);
         assertEquals(5, countSector2);
+    }
+
+    @Test
+    @Sql("/create-employee-to-be-deleted.sql")
+    void deleteEmployeeByIdShouldWorkFine() {
+        String cpf = "12345678901";
+        assertTrue(employeeRepository.findById(cpf).isPresent());
+        employeeRepository.deleteById(cpf);
+        assertFalse(employeeRepository.findById(cpf).isPresent());
     }
 
 }
