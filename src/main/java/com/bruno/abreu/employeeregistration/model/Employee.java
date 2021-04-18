@@ -1,6 +1,8 @@
 package com.bruno.abreu.employeeregistration.model;
 
+import com.bruno.abreu.employeeregistration.model.serializer.EmployeeSectorSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,6 +39,7 @@ public class Employee {
     @NotNull(message = "birthDate must not be empty")
     private LocalDate birthDate;
 
+    @JsonSerialize(using = EmployeeSectorSerializer.class)
     @ManyToOne
     @NotNull(message = "sector must not be empty")
     private Sector sector;

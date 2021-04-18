@@ -1,4 +1,4 @@
-package com.bruno.abreu.employeeregistration.model.serializer;
+package com.bruno.abreu.employeeregistration.model.serializer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class EmployeeDto {
+public class EmployeeDto {
     private String name;
     private String email;
     private Integer age;

@@ -1,6 +1,7 @@
 package com.bruno.abreu.employeeregistration.model.serializer;
 
 import com.bruno.abreu.employeeregistration.model.Employee;
+import com.bruno.abreu.employeeregistration.model.serializer.dto.EmployeeDto;
 import com.bruno.abreu.employeeregistration.util.DateUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
