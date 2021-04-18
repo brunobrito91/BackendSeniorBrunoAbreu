@@ -8,6 +8,7 @@ import com.bruno.abreu.employeeregistration.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.util.List;
 
 @org.springframework.stereotype.Service
 public class EmployeeServiceImpl implements Service<Employee> {
@@ -58,5 +59,10 @@ public class EmployeeServiceImpl implements Service<Employee> {
     @Override
     public Employee findById(String id) {
         return employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
+    }
+
+    @Override
+    public List<Employee> findAll() {
+        return employeeRepository.findAll();
     }
 }

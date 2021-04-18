@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 public interface EmployeeRepository extends CrudRepository<Employee, String> {
 
@@ -18,4 +19,6 @@ public interface EmployeeRepository extends CrudRepository<Employee, String> {
 
     Long countEmployeesBySector(
             @NotNull(message = "sector must not be empty") Sector sector);
+
+    List<Employee> findAll();
 }

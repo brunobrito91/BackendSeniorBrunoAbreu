@@ -1,10 +1,20 @@
 package com.bruno.abreu.employeeregistration.service;
 
+import java.util.List;
+
 public interface Service<T> {
 
-    T insert(T employee);
+    default T insert(T entity) {
+        throw new UnsupportedOperationException();
+    }
 
-    void remove(String id);
+    default void remove(String id) {
+        throw new UnsupportedOperationException();
+    }
 
-    T findById(String id);
+    default T findById(String id) {
+        throw new UnsupportedOperationException();
+    }
+
+    List<T> findAll();
 }

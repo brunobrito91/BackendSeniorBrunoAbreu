@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
+@WebMvcTest(EmployeeController.class)
 class EmployeeControllerTest {
 
     private static Employee employee;

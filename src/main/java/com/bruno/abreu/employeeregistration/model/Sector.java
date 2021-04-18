@@ -1,14 +1,14 @@
 package com.bruno.abreu.employeeregistration.model;
 
+import com.bruno.abreu.employeeregistration.model.serializer.SectorEmployeeSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Builder
@@ -22,4 +22,8 @@ public class Sector {
     private Long id;
 
     private String description;
+
+    @JsonSerialize(using = SectorEmployeeSerializer.class)
+    @OneToMany(mappedBy = "sector")
+    private List<Employee> employees;
 }

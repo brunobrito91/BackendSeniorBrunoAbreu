@@ -73,6 +73,7 @@ class EmployeeRepositoryTest {
     }
 
     @Test
+    @Sql("/create-employee-to-be-found.sql")
     void findEmployeeByIdShouldBeFound() {
         String cpf = "12345678910";
         assertTrue(employeeRepository.findById(cpf).isPresent());
