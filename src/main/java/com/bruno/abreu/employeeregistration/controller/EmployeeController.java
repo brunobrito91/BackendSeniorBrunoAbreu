@@ -33,4 +33,12 @@ public class EmployeeController {
                 .status(HttpStatus.OK)
                 .build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> findById(@PathVariable("id") String cpf) {
+        Employee employee = employeeService.findById(cpf);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(employee);
+    }
 }

@@ -54,4 +54,9 @@ public class EmployeeServiceImpl implements Service<Employee> {
     public void remove(String id) {
         employeeRepository.deleteById(id);
     }
+
+    @Override
+    public Employee findById(String id) {
+        return employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
+    }
 }

@@ -1,9 +1,6 @@
 package com.bruno.abreu.employeeregistration.controller;
 
-import com.bruno.abreu.employeeregistration.exception.EmployeeAlreadyRegisteredException;
-import com.bruno.abreu.employeeregistration.exception.EmployeeBlacklistedException;
-import com.bruno.abreu.employeeregistration.exception.EmployeeExceedsLimitOver65Exception;
-import com.bruno.abreu.employeeregistration.exception.EmployeeExceedsLimitUnder18Exception;
+import com.bruno.abreu.employeeregistration.exception.*;
 import com.bruno.abreu.employeeregistration.model.Employee;
 import com.bruno.abreu.employeeregistration.model.Sector;
 import com.bruno.abreu.employeeregistration.service.Service;
@@ -214,6 +211,44 @@ class EmployeeControllerTest {
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    void findEmployeeByIdShouldReturnStatusOk() throws Exception {
+        String cpf = "12345678900";
+        when(employeeService.findById(cpf)).thenReturn(employee);
+        mockMvc
+                .perform(MockMvcRequestBuilders
+                        .get("/employees/{id}", cpf)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void findEmployeeByIdShouldReturnEmployeeOnResponseBody() throws Exception {
+        String content = objectMapper.writeValueAsString(employee);
+        String cpf = "12345678900";
+        when(employeeService.findById(cpf)).thenReturn(employee);
+        mockMvc
+                .perform(MockMvcRequestBuilders
+                        .get("/employees/{id}", cpf)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.content().json(content));
+    }
+
+    @Test
+    void findEmployeeNotSavedYetByIdShouldReturnStatusNotFound() throws Exception {
+        String cpf = "12345678900";
+        when(employeeService.findById(cpf)).thenThrow(EmployeeNotFoundException.class);
+        mockMvc
+                .perform(MockMvcRequestBuilders
+                        .get("/employees/{id}", cpf)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
 
 
 }

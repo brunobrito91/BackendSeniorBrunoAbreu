@@ -68,4 +68,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity handleEmptyResultDataAccessException() {
         return ResponseEntity.notFound().build();
     }
+
+    @ExceptionHandler(value = EmployeeNotFoundException.class)
+    public ResponseEntity handleEmployeeNotFoundException() {
+        return ResponseEntity.notFound().build();
+    }
 }

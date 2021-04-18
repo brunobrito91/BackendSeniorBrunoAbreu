@@ -72,4 +72,16 @@ class EmployeeRepositoryTest {
         assertFalse(employeeRepository.findById(cpf).isPresent());
     }
 
+    @Test
+    void findEmployeeByIdShouldBeFound() {
+        String cpf = "12345678910";
+        assertTrue(employeeRepository.findById(cpf).isPresent());
+    }
+
+    @Test
+    void findEmployeeNotSavedYetByIdShouldNotBeFound() {
+        String cpf = "12345678901";
+        assertFalse(employeeRepository.findById(cpf).isPresent());
+    }
+
 }

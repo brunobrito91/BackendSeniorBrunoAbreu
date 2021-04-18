@@ -5,4 +5,6 @@ public interface Service<T> {
     T insert(T employee);
 
     void remove(String id);
+
+    T findById(String id);
 }
