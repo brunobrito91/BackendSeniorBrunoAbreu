@@ -4,7 +4,7 @@ services:
     container_name: employee-registration-database-container
     image: mysql
     ports:
-      - "3307:3306"
+      - "3306:3306"
     networks:
       - employee-registration-network
     volumes:
@@ -16,7 +16,22 @@ services:
       MYSQL_DATABASE: employee-registration-database
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-      
+
+  employee-registration-application-service:
+    container_name: employee-registration-application-container
+    image: employee-registration
+    ports:
+      - "8080:8080"
+    networks:
+      - employee-registration-network
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - employee-registration-database-service
+    environment:
+      MYSQL_HOST: employee-registration-database-service
+
 networks:
   employee-registration-network:
 
